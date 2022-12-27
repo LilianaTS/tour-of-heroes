@@ -1,0 +1,30 @@
+<div *ngIf="hero">
+    <h2>{{hero.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{hero.id}}</div>
+    <div>
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
+    </div>
+    <div>
+        <label for="hero-start-date">Join Date: </label>
+        <input type="date" id="hero-start-date" [ngModel]="hero.date | date : 'yyyy-MM-dd'"
+            (ngModelChange)="dateChange($event)">
+    </div>
+    <div>
+        <label for="people-saved">People saved: </label>
+        <input id="people-saved" [(ngModel)]="hero.peopleSaved" placeholder="People saved" type="number" />
+    </div>
+    <div>
+        <select class="form-control" name="country" id="country" [(ngModel)]="hero.countryId">
+            <option value="" disabled selected>Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{country.name}}
+            </option>
+        </select>
+    </div>
+    <button type="button" (click)="goBack()">
+        <mat-icon aria-hidden="false" aria-label="go back">arrow_back</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Basic" (click)="save()" aria-label="save button">
+        <mat-icon aria-hidden="false" aria-label="save">save</mat-icon>
+    </button>
+</div>

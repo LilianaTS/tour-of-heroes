@@ -1,0 +1,26 @@
+<div id="search-component">
+    <form class="search-form">
+        <mat-form-field appearance="fill" (input)="searchTerm.next($any ($event.target).value)">
+            <mat-label>Search Name</mat-label>
+            <input matInput placeholder="Name">
+        </mat-form-field>
+        <label for="search-box-date">Join Date:</label>
+        <input #date type="date" id="search-box-date" (input)="searchDate.next($any ($event.target).value)">
+        <mat-form-field appearance="fill">
+            <mat-select id="country" (selectionChange)="searchCountry.next($any ($event).value)">
+                <mat-label>Select Country</mat-label>
+                <mat-option [value]=-1>--</mat-option>
+                <mat-option *ngFor="let country of countries" [value]="country.id">
+                    {{country.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+    <ul class="search-result">
+        <li *ngFor="let hero of heroes$ | async">
+            <mat-card class="card" routerLink="/detail/{{hero.id}}">
+                {{hero.name}}
+            </mat-card>
+        </li>
+    </ul>
+</div>
