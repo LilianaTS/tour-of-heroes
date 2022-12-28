@@ -1,4 +1,19 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { RouterModule } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 
@@ -25,6 +40,11 @@ export class HeroSearchComponent implements OnInit {
   searchTerm = new BehaviorSubject<string>('');
   searchCountry = new BehaviorSubject<number>(-1);
   searchDate = new BehaviorSubject<Date | undefined>(undefined);
+
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   countries!: Country[];
   constructor(

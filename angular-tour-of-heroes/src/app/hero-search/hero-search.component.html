@@ -1,29 +1,32 @@
 <div id="search-component">
   <form class="search-form">
-    <mat-form-field
-      appearance="fill"
-      (input)="searchTerm.next($any($event.target).value)"
-    >
-      <mat-label>Search Name</mat-label>
-      <input matInput placeholder="Name" />
-    </mat-form-field>
-    <label for="search-box-date">Join Date:</label>
-    <input
-      #date
-      type="date"
-      id="search-box-date"
-      (input)="searchDate.next($any($event.target).value)"
-    />
     <mat-form-field appearance="fill">
-      <mat-select
-        id="country"
-        (selectionChange)="searchCountry.next($event.value)"
-      >
+      <mat-label>Search Name</mat-label>
+      <input matInput placeholder="Name" [ngModel]="searchTerm | async" (ngModelChange)="searchTerm.next($event)"
+        name="name" />
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill" (input)="">
+      <mat-date-range-input>
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date">
+      </mat-date-range-input>
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+      <mat-label>Join Date</mat-label>
+      <input matInput [matDatepicker]="picker" [ngModel]="searchDate | async" (ngModelChange)="searchDate.next($event)"
+        name="date">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-select id="country" (selectionChange)="searchCountry.next($event.value)">
         <mat-label>Select Country</mat-label>
         <mat-option [value]="-1">--</mat-option>
         <mat-option *ngFor="let country of countries" [value]="country.id">
-          {{ country.name }}</mat-option
-        >
+          {{ country.name }}</mat-option>
       </mat-select>
     </mat-form-field>
   </form>
