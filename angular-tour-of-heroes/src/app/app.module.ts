@@ -13,15 +13,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { MessagesComponent } from './messages/messages.component';
-import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { AbstractHeroService } from './abstract-hero.service';
 import { HeroService } from './hero.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 // import { InMemoryDataService } from './in-memory-data.service';
 
@@ -38,15 +41,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
     HeroesComponent,
     HeroDetailComponent,
-    MessagesComponent,
     HeroSearchComponent,
+    MessagesComponent,
   ],
   providers: [{ provide: AbstractHeroService, useClass: HeroService }],
   bootstrap: [AppComponent],

@@ -8,49 +8,38 @@
     </div>
     -->
     <mat-form-field appearance="fill">
-      <mat-label>Search Name</mat-label>
-      <input matInput placeholder="Name" [(ngModel)]="hero.name" />
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" value="{{hero.name}}" [(ngModel)]="hero.name" name="name" />
     </mat-form-field>
-    <div>
-      <label for="hero-start-date">Join Date: </label>
-      <input
-        type="date"
-        id="hero-start-date"
-        [ngModel]="hero.date | date : 'yyyy-MM-dd'"
-        (ngModelChange)="dateChange($event)"
-      />
-    </div>
-    <div>
-      <label for="people-saved">People saved: </label>
-      <input
-        id="people-saved"
-        [(ngModel)]="hero.peopleSaved"
-        placeholder="People saved"
-        type="number"
-      />
-    </div>
-    <div>
-      <select
-        class="form-control"
-        name="country"
-        id="country"
-        [(ngModel)]="hero.countryId"
-      >
-        <option value="" disabled selected>Select Country</option>
-        <option *ngFor="let country of countries" [value]="country.id">
-          {{ country.name }}
-        </option>
-      </select>
-    </div>
-    <button type="button" (click)="goBack()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Join Date</mat-label>
+      <input matInput [matDatepicker]="picker" [ngModel]="hero.date | date : 'yyyy-MM-dd'"
+        (ngModelChange)="dateChange($event)" name="date">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>People saved</mat-label>
+      <input matInput type="number" id="people-saved" [(ngModel)]="hero.peopleSaved" placeholder="People saved"
+        type="number" name="saved">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-select id="country" [(ngModel)]="hero.countryId" name="country">
+        <mat-label>Select Country</mat-label>
+        <mat-option [value]="-1"></mat-option>
+        <mat-option *ngFor="let country of countries" [value]="country.id">
+          {{ country.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button (click)="goBack()">
       <mat-icon aria-hidden="false" aria-label="go back">arrow_back</mat-icon>
     </button>
-    <button
-      mat-icon-button
-      matTooltip="Basic"
-      (click)="save()"
-      aria-label="save button"
-    >
+    <button mat-icon-button matTooltip="Basic" (click)="save()" aria-label="save button">
       <mat-icon aria-hidden="false" aria-label="save">save</mat-icon>
     </button>
   </form>
