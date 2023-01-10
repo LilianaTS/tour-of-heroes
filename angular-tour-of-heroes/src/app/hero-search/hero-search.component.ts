@@ -20,12 +20,14 @@ import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
+  startWith,
   switchMap,
   tap,
 } from 'rxjs/operators';
 import { AbstractHeroService } from '../abstract-hero.service';
 import { Country } from '../country';
 import { CountryService } from '../country.service';
+import { CountryFlagPipe } from '../country-flag.pipe';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
@@ -37,13 +39,16 @@ import { HeroService } from '../hero.service';
 })
 export class HeroSearchComponent implements OnInit {
   heroes$!: Observable<Hero[]>;
-  searchTerm = new BehaviorSubject<string>('');
-  searchCountry = new BehaviorSubject<number>(-1);
-  searchDate = new BehaviorSubject<Date | undefined>(undefined);
 
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
+  search = new FormGroup({
+    id: new FormControl<number | undefined>(undefined),
+    name: new FormControl<string>(''),
+    countryId: new FormControl<number>(-1),
+    date: new FormGroup({
+      start: new FormControl<Date | undefined>(undefined),
+      end: new FormControl<Date | undefined>(undefined),
+    }),
+    peopleSaved: new FormControl<number>(0),
   });
 
   countries!: Country[];
@@ -52,38 +57,22 @@ export class HeroSearchComponent implements OnInit {
     private countryService: CountryService
   ) {}
 
-  // Push a search term into the observable stream.
-  // searchHeroName(term: string): void {
-  //   this.searchTerms.next(term);
-  // }
-
-  // searchHeroDate(date: string) {
-  //   this.searchTerms.next(date);
-  // }
-
-  // searchHeroCountry(countryId: number) {
-  //   this.countryId = countryId;
-  // }
-
   ngOnInit(): void {
     this.countryService
       .getCountries()
       .subscribe((countries) => (this.countries = countries));
 
-    this.heroes$ = combineLatest([
-      this.searchCountry.pipe(distinctUntilChanged()),
-      this.searchDate.pipe(distinctUntilChanged()),
-      this.searchTerm.pipe(distinctUntilChanged()),
-    ]).pipe(
+    this.heroes$ = this.search.valueChanges.pipe(
       // wait 500ms after each keystroke before considering the term
       debounceTime(500),
       tap((searchTerm) => console.log(searchTerm)),
       // switch to new search observable each time the term changes
-      switchMap(([searchCountry, searchDate, searchTerm]) =>
+      switchMap((hero) =>
         this.heroService.searchHeroes(
-          searchTerm,
-          +searchCountry,
-          searchDate ? new Date(searchDate) : undefined
+          hero.name ?? '',
+          +(hero.countryId ?? -1),
+          hero.date?.start ? new Date(hero.date.start) : undefined,
+          hero.date?.end ? new Date(hero.date.end) : undefined
         )
       )
     );

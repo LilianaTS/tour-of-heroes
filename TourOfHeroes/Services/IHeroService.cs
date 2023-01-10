@@ -12,6 +12,6 @@ namespace TourOfHeroes.Services
         Task<Hero> UpdateHero(int id, Hero hero);
         Task<Hero> DeleteHero(int id);
         Task<Hero> AddHero(Hero hero);
-        Task<Hero[]> SearchHeroes(string term, int country, DateTime? date);
+        Task<Hero[]> SearchHeroes(string term, int country, DateTime? startDate, DateTime? endDate);
     }
 }

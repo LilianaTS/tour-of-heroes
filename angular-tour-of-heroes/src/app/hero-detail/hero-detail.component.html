@@ -1,46 +1,57 @@
 <div *ngIf="hero">
   <h2>{{ hero.name | uppercase }} Details</h2>
-  <form class="edit-form">
+  <form [formGroup]="heroForm" class="edit-form">
     <div><span>id: </span>{{ hero.id }}</div>
-    <!-- <div>
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
-    </div>
-    -->
-    <mat-form-field appearance="fill">
+    <mat-form-field *ngIf="!readOnly" appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Name" value="{{hero.name}}" [(ngModel)]="hero.name" name="name" />
+      <input [disabled]="readOnly" matInput formControlName="name" placeholder="Name" />
     </mat-form-field>
+    <p *ngIf="readOnly">Name: {{hero.name}}</p>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="!readOnly">
       <mat-label>Join Date</mat-label>
-      <input matInput [matDatepicker]="picker" [ngModel]="hero.date | date : 'yyyy-MM-dd'"
-        (ngModelChange)="dateChange($event)" name="date">
+      <input [disabled]="readOnly" matInput [matDatepicker]="picker" formControlName="date">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <p *ngIf="readOnly">Join Date: {{hero.date | date}}</p>
 
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="fill" *ngIf="!readOnly">
       <mat-label>People saved</mat-label>
-      <input matInput type="number" id="people-saved" [(ngModel)]="hero.peopleSaved" placeholder="People saved"
-        type="number" name="saved">
+      <input matInput type="number" formControlName="peopleSaved" placeholder="People saved" type="number">
     </mat-form-field>
+    <p *ngIf="readOnly">People saved: {{hero.peopleSaved}}</p>
 
-    <mat-form-field appearance="fill">
-      <mat-select id="country" [(ngModel)]="hero.countryId" name="country">
+
+    <mat-form-field appearance="fill" *ngIf="!readOnly">
+      <mat-select formControlName="countryId" [disabled]="readOnly">
         <mat-label>Select Country</mat-label>
         <mat-option [value]="-1"></mat-option>
         <mat-option *ngFor="let country of countries" [value]="country.id">
           {{ country.name }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <p *ngIf="readOnly">Country: {{heroCountry?.name || 'Unknown'}}</p>
 
-    <button mat-icon-button (click)="goBack()">
-      <mat-icon aria-hidden="false" aria-label="go back">arrow_back</mat-icon>
-    </button>
-    <button mat-icon-button matTooltip="Basic" (click)="save()" aria-label="save button">
-      <mat-icon aria-hidden="false" aria-label="save">save</mat-icon>
-    </button>
+    <img *ngIf="heroForm.controls['countryId'].value | countryFlag as flag" [src]="flag" width="60px" height="40px">
+
+
+    <div *ngIf="!readOnly">
+      <app-image-uploader (pictureBase64)="getPictureBase64($event)" [image]="hero.picture"></app-image-uploader>
+    </div>
+    <img *ngIf="readOnly" [src]="hero.picture">
+
+    <div>
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon aria-hidden="false" aria-label="go back">arrow_back</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Basic" (click)="toggleReadOnly()" aria-label="save button">
+        <mat-icon aria-hidden="false">
+          {{ readOnly ? 'edit' : 'save' }}
+        </mat-icon>
+      </button>
+    </div>
   </form>
 </div>

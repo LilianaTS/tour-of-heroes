@@ -18,5 +18,7 @@ namespace TourOfHeroes.Models
         public int? CountryId { get; set; }
         
         public Country Country { get; set; }
+
+        public string Picture { get; set; }
     }
 }

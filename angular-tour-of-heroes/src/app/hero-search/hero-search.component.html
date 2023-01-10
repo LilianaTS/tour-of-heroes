@@ -1,34 +1,34 @@
 <div id="search-component">
-  <form class="search-form">
+  <form class="search-form" [formGroup]="search">
     <mat-form-field appearance="fill">
       <mat-label>Search Name</mat-label>
-      <input matInput placeholder="Name" [ngModel]="searchTerm | async" (ngModelChange)="searchTerm.next($event)"
-        name="name" />
+      <input matInput placeholder="Name" formControlName="name" />
     </mat-form-field>
-    <!-- <mat-form-field appearance="fill" (input)="">
-      <mat-date-range-input>
+    <mat-form-field appearance="fill">
+      <mat-date-range-input formGroupName="date" [rangePicker]="picker">
         <input matStartDate formControlName="start" placeholder="Start date">
         <input matEndDate formControlName="end" placeholder="End date">
       </mat-date-range-input>
-      <input matStartDate formControlName="start" placeholder="Start date">
-      <input matEndDate formControlName="end" placeholder="End date">
-    </mat-form-field> -->
-    <mat-form-field appearance="fill">
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Join Date</mat-label>
-      <input matInput [matDatepicker]="picker" [ngModel]="searchDate | async" (ngModelChange)="searchDate.next($event)"
-        name="date">
+      <input matInput [matDatepicker]="picker" formControlName="date">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-form-field appearance="fill">
-      <mat-select id="country" (selectionChange)="searchCountry.next($event.value)">
+      <mat-select id="country" formControlName="countryId">
         <mat-label>Select Country</mat-label>
         <mat-option [value]="-1">--</mat-option>
         <mat-option *ngFor="let country of countries" [value]="country.id">
           {{ country.name }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <img *ngIf="search.controls['countryId'].value | countryFlag as flag" [src]="flag" width="60px" height="40px">
   </form>
 
   <ul class="search-result">

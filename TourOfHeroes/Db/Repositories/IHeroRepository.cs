@@ -12,7 +12,7 @@ namespace TourOfHeroes.Db.Repositories
         public Task<Hero> UpdateHero(int id, Hero hero);
         public Task<Hero> AddHero(Hero hero);
         public Task<Hero> DeleteHero(int id);
-        public Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? date);
+        public Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? startDate, DateTime? endDate);
 
     }
 

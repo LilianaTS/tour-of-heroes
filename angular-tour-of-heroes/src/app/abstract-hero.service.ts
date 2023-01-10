@@ -23,7 +23,8 @@ export abstract class AbstractHeroService {
   abstract searchHeroes(
     term: string,
     countryId: number,
-    date: Date | undefined
+    startDate: Date | undefined,
+    endDate: Date | undefined
   ): Observable<Hero[]>;
 
   /* GET heroes that started saving on selectedDate */

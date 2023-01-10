@@ -34,9 +34,9 @@ namespace TourOfHeroes.Controllers
 
         [HttpGet]
         [Route("search")]
-        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? date)
+        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? startDate, DateTime? endDate)
         {
-            return await heroService.SearchHeroes(term, countryId, date);
+            return await heroService.SearchHeroes(term, countryId, startDate, endDate);
         }
 
         [HttpGet]

@@ -4,4 +4,5 @@ export interface Hero {
   countryId: number;
   date: Date | null;
   peopleSaved: number;
+  picture: string | null;
 }

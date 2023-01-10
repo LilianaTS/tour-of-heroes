@@ -66,12 +66,14 @@ export class HeroService extends AbstractHeroService {
   searchHeroes(
     term: string,
     countryId: number,
-    inputDate: Date | undefined
+    beginDate: Date | undefined,
+    finalDate: Date | undefined
   ): Observable<Hero[]> {
     const url = `${this.heroesUrl}/search`;
-    const date = inputDate?.toISOString() ?? '';
+    const startDate = beginDate?.toISOString() ?? '';
+    const endDate = finalDate?.toISOString() ?? '';
     return this.http
-      .get<Hero[]>(url, { params: { term, countryId, date } })
+      .get<Hero[]>(url, { params: { term, countryId, startDate, endDate } })
       .pipe(
         tap((x) =>
           x.length

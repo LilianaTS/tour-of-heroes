@@ -41,6 +41,7 @@ namespace TourOfHeroes.Db.Repositories
             dbHero.CountryId = hero.CountryId;
             dbHero.Date = hero.Date;
             dbHero.PeopleSaved = hero.PeopleSaved;
+            dbHero.Picture = hero.Picture;
 
             try
             {
@@ -98,7 +99,7 @@ namespace TourOfHeroes.Db.Repositories
             return hero;
         }
 
-        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? date)
+        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? startDate, DateTime? endDate)
         {
             IQueryable<Hero> searchedHeroes = context.Heroes;
             if (!string.IsNullOrEmpty(term?.Trim()))
@@ -109,9 +110,13 @@ namespace TourOfHeroes.Db.Repositories
             {
                 searchedHeroes = searchedHeroes.Where(hero => hero.CountryId == countryId);
             }
-            if (date != null)
+            if (startDate != null)
             {
-                searchedHeroes = searchedHeroes.Where(hero => hero.Date == date);
+                searchedHeroes = searchedHeroes.Where(hero => startDate < hero.Date );
+            }
+            if (endDate!= null)
+            {
+                searchedHeroes = searchedHeroes.Where(hero => hero.Date < endDate);
             }
 
             return await searchedHeroes.ToArrayAsync();

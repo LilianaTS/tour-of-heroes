@@ -20,11 +20,16 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { CountryFlagPipe } from './country-flag.pipe';
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import { ImageBorderDirective } from './image-border.directive';
 
 // import { InMemoryDataService } from './in-memory-data.service';
 
@@ -42,6 +47,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
     MatNativeDateModule,
     ReactiveFormsModule,
@@ -53,6 +59,9 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     HeroSearchComponent,
     MessagesComponent,
+    CountryFlagPipe,
+    ImageUploaderComponent,
+    ImageBorderDirective,
   ],
   providers: [{ provide: AbstractHeroService, useClass: HeroService }],
   bootstrap: [AppComponent],

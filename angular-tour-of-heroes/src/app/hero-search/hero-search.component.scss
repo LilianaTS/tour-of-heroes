@@ -9,6 +9,16 @@ label {
 
 }
 
+
+.search-form {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    gap: 10px;
+    width: 150px;
+}
+
+
 input {
     padding: .5rem;
     width: 100%;

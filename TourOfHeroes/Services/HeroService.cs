@@ -45,9 +45,9 @@ namespace TourOfHeroes.Services
             return await heroRepository.AddHero(hero);
         }
 
-        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? date)
+        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? startDate, DateTime? endDate)
         {
-            return await heroRepository.SearchHeroes(term, countryId, date);
+            return await heroRepository.SearchHeroes(term, countryId, startDate, endDate);
         }
     }
 }
