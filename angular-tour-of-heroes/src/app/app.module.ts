@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-
+import { httpInterceptorProviders } from './interceptors';
 import { AppRoutingModule } from './app-routing.module';
 
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -30,6 +31,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { CountryFlagPipe } from './country-flag.pipe';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { ImageBorderDirective } from './image-border.directive';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 // import { InMemoryDataService } from './in-memory-data.service';
 
@@ -48,6 +50,7 @@ import { ImageBorderDirective } from './image-border.directive';
     MatSelectModule,
     MatDatepickerModule,
     MatSnackBarModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     MatNativeDateModule,
     ReactiveFormsModule,
@@ -62,8 +65,12 @@ import { ImageBorderDirective } from './image-border.directive';
     CountryFlagPipe,
     ImageUploaderComponent,
     ImageBorderDirective,
+    ErrorDialogComponent,
   ],
-  providers: [{ provide: AbstractHeroService, useClass: HeroService }],
+  providers: [
+    { provide: AbstractHeroService, useClass: HeroService },
+    httpInterceptorProviders,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -15,6 +15,7 @@ using TourOfHeroes.Db;
 using TourOfHeroes.Db.Repositories;
 using TourOfHeroes.Services;
 using Microsoft.AspNetCore.Cors;
+using System.Globalization;
 
 namespace TourOfHeroes
 {
@@ -50,6 +51,17 @@ namespace TourOfHeroes
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            if (Configuration["Teapot"] == "true") { 
+                app.Use(async (context, next) =>
+                {
+                    context.Response.StatusCode = 418;
+
+                    await next(context);
+                });
+            }
+
+
 
             app.UseHttpsRedirection();
 
