@@ -45,3 +45,4 @@ Thumbs.db
 *.pdb
 *.dll
 TourOfHeroes/obj/Debug/net6.0/project.razor.json
+*.dll
