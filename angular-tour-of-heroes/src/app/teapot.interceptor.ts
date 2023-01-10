@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable, retry, catchError, map } from 'rxjs';
+import { Observable, retry, catchError, map, throwError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
@@ -24,23 +24,11 @@ export class TeapotInterceptor implements HttpInterceptor {
     console.log('0');
 
     return next.handle(request).pipe(
-      map((event: HttpEvent<any>) => {
-        console.log('1');
-        console.log(event instanceof HttpResponse);
-        console.log(event instanceof HttpErrorResponse);
-
-        if (event instanceof HttpResponse) {
-          console.log('2');
-          if (event.status === 418) {
-            console.log('open dialog');
-            this.dialog.open(ErrorDialogComponent);
-          } else if (event instanceof HttpErrorResponse) {
-            if (event.status === 418) {
-              this.dialog.open(ErrorDialogComponent);
-            }
-          }
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 418) {
+          this.dialog.open(ErrorDialogComponent);
         }
-        return event;
+        return throwError(error);
       })
     );
   }
