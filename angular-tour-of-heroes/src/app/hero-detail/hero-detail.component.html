@@ -1,28 +1,42 @@
 <div *ngIf="hero">
-  <h2>{{ hero.name | uppercase }} Details</h2>
+  <h2>{{ 'HERO_DETAILS.TITLE' | translate: { heroName: hero.name | uppercase} }}</h2>
   <form [formGroup]="heroForm" class="edit-form">
-    <div><span>id: </span>{{ hero.id }}</div>
+    <div><span>{{ 'HERO_DETAILS.ID_LABEL' | translate }}</span>{{ hero.id }}</div>
+
     <mat-form-field *ngIf="!readOnly" appearance="fill">
-      <mat-label>Name</mat-label>
-      <input [disabled]="readOnly" matInput formControlName="name" placeholder="Name" />
+      <mat-label>{{ 'HERO_DETAILS.NAME_LABEL' | translate }}</mat-label>
+      <input [disabled]="readOnly" matInput formControlName="name"
+        placeholder="{{ 'HERO_DETAILS.NAME_LABEL' | translate }}" />
+      <mat-error *ngIf="heroForm.get('name')!.invalid && heroForm.get('name')!.touched">
+
+        <div *ngIf="heroForm.get('name')!.errors?.['required']">
+          {{ 'HERO_DETAILS.NAME_REQUIRED_ERROR' | translate }}
+        </div>
+        <div *ngIf="heroForm.get('name')!.errors?.['minlength']">
+          {{ 'HERO_DETAILS.NAME_MINLENGTH_ERROR' | translate }}
+        </div>
+
+      </mat-error>
+
     </mat-form-field>
-    <p *ngIf="readOnly">Name: {{hero.name}}</p>
+    <p *ngIf="readOnly">{{ 'HERO_DETAILS.NAME_LABEL' | translate }}: {{hero.name}}</p>
 
     <mat-form-field appearance="fill" *ngIf="!readOnly">
-      <mat-label>Join Date</mat-label>
+      <mat-label>{{ 'HERO_DETAILS.JOIN_DATE_LABEL' | translate }}</mat-label>
       <input [disabled]="readOnly" matInput [matDatepicker]="picker" formControlName="date">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>{{ 'HERO_DETAILS.JOIN_DATE_HINT' | translate }}</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <p *ngIf="readOnly">Join Date: {{hero.date | date}}</p>
+    <p *ngIf="readOnly">{{ 'HERO_DETAILS.JOIN_DATE_LABEL' | translate }}: {{hero.date | date}}</p>
 
 
     <mat-form-field appearance="fill" *ngIf="!readOnly">
-      <mat-label>People saved</mat-label>
-      <input matInput type="number" formControlName="peopleSaved" placeholder="People saved" type="number">
+      <mat-label>{{ 'HERO_DETAILS.PEOPLE_SAVED_LABEL' | translate }}</mat-label>
+      <input matInput type="number" formControlName="peopleSaved"
+        placeholder="{{ 'HERO_DETAILS.PEOPLE_SAVED_LABEL' | translate }}" type="number">
     </mat-form-field>
-    <p *ngIf="readOnly">People saved: {{hero.peopleSaved}}</p>
+    <p *ngIf="readOnly">{{ 'HERO_DETAILS.PEOPLE_SAVED_LABEL' | translate }}: {{hero.peopleSaved}}</p>
 
 
     <mat-form-field appearance="fill" *ngIf="!readOnly">

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Hero } from '../hero';
 import { AbstractHeroService } from '../abstract-hero.service';
 import { Country } from '../country';
 import { CountryService } from '../country.service';
 import { CountryFlagPipe } from '../country-flag.pipe';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-hero-detail',
@@ -19,7 +22,10 @@ export class HeroDetailComponent implements OnInit {
   countries!: Country[];
   heroForm = new FormGroup({
     id: new FormControl<number | undefined>(undefined),
-    name: new FormControl<string>(''),
+    name: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
     countryId: new FormControl<number>(-1),
     date: new FormControl<Date | undefined>(undefined),
     peopleSaved: new FormControl<number>(0),
@@ -28,14 +34,21 @@ export class HeroDetailComponent implements OnInit {
   heroCountry: Country | undefined;
 
   private picture: string | undefined | null;
+  translationsLoaded = false;
+
   readOnly = true;
 
   constructor(
     private route: ActivatedRoute,
     private heroService: AbstractHeroService,
     private countryService: CountryService,
-    private location: Location
-  ) {}
+    private location: Location,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
+  }
 
   ngOnInit(): void {
     this.countryService.getCountries().subscribe((countries) => {
@@ -71,6 +84,12 @@ export class HeroDetailComponent implements OnInit {
 
   toggleReadOnly() {
     if (!this.readOnly) {
+      if (!this.heroForm.valid) {
+        this.snackBar.open('Verify information on form', undefined, {
+          duration: 5000,
+        });
+        return;
+      }
       this.save();
     }
     this.readOnly = !this.readOnly;

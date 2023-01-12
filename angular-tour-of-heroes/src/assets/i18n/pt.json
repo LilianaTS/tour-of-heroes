@@ -1,0 +1,42 @@
+{
+    "ERROR_DIALOG": {
+        "IMG_ALT_TEXT": "Imagem de um cão com um bule",
+        "CLOSE_BUTTON": "Fechar"
+    },
+    "DASHBOARD": {
+        "TITLE": "Painel de Controle"
+    },
+    "HERO_DETAILS": {
+        "TITLE": "Detalhes de {{ heroName }}",
+        "ID_LABEL": "id: ",
+        "NAME_LABEL": "Nome",
+        "NAME_REQUIRED_ERROR": "Nome é obrigatório.",
+        "NAME_MINLENGTH_ERROR": "Nome deve ter pelo menos 3 caracteres.",
+        "JOIN_DATE_LABEL": "Data de entrada",
+        "JOIN_DATE_HINT": "MM/DD/YYYY",
+        "PEOPLE_SAVED_LABEL": "Pessoas salvas",
+        "SELECT_COUNTRY_LABEL": "Selecione um País",
+        "UNKNOWN_COUNTRY": "Desconhecido",
+        "GO_BACK_BUTTON": "Voltar",
+        "EDIT_BUTTON": "Editar",
+        "SAVE_BUTTON": "Salvar"
+    },
+    "HERO_SEARCH": {
+        "SEARCH_NAME": "Procurar Nome",
+        "START_DATE": "Data de Início",
+        "END_DATE": "Data de Fim",
+        "SELECT_COUNTRY": "Selecione País",
+        "NO_COUNTRY": "--",
+        "SEARCH_RESULT": "Resultado da Procura"
+    },
+    "HEROES": {
+        "TITLE": "Meus Heróis"
+    },
+    "IMAGE": {
+        "SELECT_IMAGE": "Selecionar Imagem"
+    },
+    "LANGUAGE_SELECTOR": {
+        "ENGLISH": "Inglês",
+        "PORTUGUESE": "Português"
+    }
+}

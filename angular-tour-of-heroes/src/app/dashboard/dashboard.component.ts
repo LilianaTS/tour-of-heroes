@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractHeroService } from '../abstract-hero.service';
 import { Hero } from '../hero';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,13 @@ import { Hero } from '../hero';
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 
-  constructor(private heroService: AbstractHeroService) {}
+  constructor(
+    private heroService: AbstractHeroService,
+    private translate: TranslateService
+  ) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
 
   ngOnInit(): void {
     this.getHeroes();

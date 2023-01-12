@@ -27,40 +27,40 @@ namespace TourOfHeroes.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Hero> Get(int id)
+        public async Task<ActionResult<Hero>> Get(int id)
         {
-            return await heroService.GetHero(id);
+            return Ok(await heroService.GetHero(id));
         }
 
         [HttpGet]
         [Route("search")]
-        public async Task<Hero[]> SearchHeroes(string term, int countryId, DateTime? startDate, DateTime? endDate)
+        public async Task<ActionResult<Hero[]>> SearchHeroes(string term, int countryId, DateTime? startDate, DateTime? endDate)
         {
-            return await heroService.SearchHeroes(term, countryId, startDate, endDate);
+            return Ok(await heroService.SearchHeroes(term, countryId, startDate, endDate));
         }
 
         [HttpGet]
-        public async Task<Hero[]> Get()
+        public async Task<ActionResult<Hero[]>> Get()
         {
-            return await heroService.GetHeroes();
+            return Ok(await heroService.GetHeroes());
         }
 
         [HttpPut("{id}")]
-        public async Task<Hero> Update(int id, [FromBody]Hero hero)
+        public async Task<ActionResult<Hero>> Update(int id, [FromBody]Hero hero)
         {
-            return await heroService.UpdateHero(id, hero);
+            return Ok(await heroService.UpdateHero(id, hero));
         }
 
         [HttpDelete("{id}")]
-        public async Task<Hero> DeleteHero(int id)
+        public async Task<ActionResult<Hero>> DeleteHero(int id)
         {
-            return await heroService.DeleteHero(id);
+            return Ok(await heroService.DeleteHero(id));
         }
 
         [HttpPost]
-        public async Task<Hero> AddHero(Hero hero)
+        public async Task<ActionResult<Hero>> AddHero(Hero hero)
         {
-            return await heroService.AddHero(hero);
+            return Ok(await heroService.AddHero(hero));
         }
 
 

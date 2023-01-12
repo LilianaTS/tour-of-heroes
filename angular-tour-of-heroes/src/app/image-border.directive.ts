@@ -1,4 +1,6 @@
 import {
+  AfterViewChecked,
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
@@ -10,28 +12,28 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 @Directive({
   selector: '[appImageBorder]',
 })
-export class ImageBorderDirective {
-  @Input() component!: ImageUploaderComponent;
+export class ImageBorderDirective implements AfterViewInit {
+  @Input() component!: HTMLInputElement;
 
   constructor(private element: ElementRef) {}
+  ngAfterViewInit(): void {
+    this.component.hidden = true;
+  }
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    console.log(this.element.nativeElement);
     this.element.nativeElement.style.filter = 'brightness(25%)';
     this.element.nativeElement.title = 'Click to upload';
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    console.log(this.element.nativeElement);
-
     this.element.nativeElement.style.filter = 'initial';
     this.element.nativeElement.title = '';
   }
 
   @HostListener('click')
   onClick() {
-    document.getElementById('img')!.click();
+    this.component.click();
   }
 }

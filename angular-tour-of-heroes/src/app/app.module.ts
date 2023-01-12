@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { httpInterceptorProviders } from './interceptors';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +35,14 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { ImageBorderDirective } from './image-border.directive';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
+
 // import { InMemoryDataService } from './in-memory-data.service';
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
   imports: [
@@ -54,6 +63,13 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     BrowserAnimationsModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   declarations: [
     AppComponent,
@@ -66,11 +82,13 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     ImageUploaderComponent,
     ImageBorderDirective,
     ErrorDialogComponent,
+    LanguageSelectorComponent,
   ],
   providers: [
     { provide: AbstractHeroService, useClass: HeroService },
     httpInterceptorProviders,
   ],
   bootstrap: [AppComponent],
+  exports: [TranslateModule],
 })
 export class AppModule {}

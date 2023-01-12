@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-error-dialog',
@@ -7,7 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./error-dialog.component.scss'],
 })
 export class ErrorDialogComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
-
+  constructor(public dialog: MatDialog, private translate: TranslateService) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
   ngOnInit(): void {}
 }

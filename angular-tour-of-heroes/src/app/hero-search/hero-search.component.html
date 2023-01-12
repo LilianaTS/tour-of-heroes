@@ -1,35 +1,29 @@
 <div id="search-component">
   <form class="search-form" [formGroup]="search">
     <mat-form-field appearance="fill">
-      <mat-label>Search Name</mat-label>
+      <mat-label>{{'HERO_SEARCH.SEARCH_NAME' | translate}}</mat-label>
       <input matInput placeholder="Name" formControlName="name" />
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-date-range-input formGroupName="date" [rangePicker]="picker">
-        <input matStartDate formControlName="start" placeholder="Start date">
-        <input matEndDate formControlName="end" placeholder="End date">
+        <input matStartDate formControlName="start" placeholder="{{'HERO_SEARCH.START_DATE' | translate}}">
+        <input matEndDate formControlName="end" placeholder="{{'HERO_SEARCH.END_DATE' | translate}}">
       </mat-date-range-input>
       <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Join Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field> -->
     <mat-form-field appearance="fill">
       <mat-select id="country" formControlName="countryId">
-        <mat-label>Select Country</mat-label>
-        <mat-option [value]="-1">--</mat-option>
+        <mat-label>{{'HERO_SEARCH.SELECT_COUNTRY' | translate}}</mat-label>
+        <mat-option [value]="-1">{{'HERO_SEARCH.NO_COUNTRY' | translate}}</mat-option>
         <mat-option *ngFor="let country of countries" [value]="country.id">
           {{ country.name }}</mat-option>
       </mat-select>
     </mat-form-field>
     <img *ngIf="search.controls['countryId'].value | countryFlag as flag" [src]="flag" width="60px" height="40px">
   </form>
+
 
   <ul class="search-result">
     <li *ngFor="let hero of heroes$ | async">
@@ -38,4 +32,5 @@
       </mat-card>
     </li>
   </ul>
+
 </div>

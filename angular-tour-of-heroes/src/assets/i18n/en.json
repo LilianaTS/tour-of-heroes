@@ -1,0 +1,42 @@
+{
+    "ERROR_DIALOG": {
+        "IMG_ALT_TEXT": "Picture of a dog with a teapot",
+        "CLOSE_BUTTON": "Close"
+    },
+    "DASHBOARD": {
+        "TITLE": "Dashboard"
+    },
+    "HERO_DETAILS": {
+        "TITLE": "{{ heroName }} Details",
+        "ID_LABEL": "id: ",
+        "NAME_LABEL": "Name",
+        "NAME_REQUIRED_ERROR": "Name is required.",
+        "NAME_MINLENGTH_ERROR": "Name must be at least 3 characters long.",
+        "JOIN_DATE_LABEL": "Join Date",
+        "JOIN_DATE_HINT": "MM/DD/YYYY",
+        "PEOPLE_SAVED_LABEL": "People saved",
+        "SELECT_COUNTRY_LABEL": "Select Country",
+        "UNKNOWN_COUNTRY": "Unknown",
+        "GO_BACK_BUTTON": "Go back",
+        "EDIT_BUTTON": "Edit",
+        "SAVE_BUTTON": "Save"
+    },
+    "HERO_SEARCH": {
+        "SEARCH_NAME": "Search Name",
+        "START_DATE": "Start date",
+        "END_DATE": "End date",
+        "SELECT_COUNTRY": "Select Country",
+        "NO_COUNTRY": "--",
+        "SEARCH_RESULT": "Search Result"
+    },
+    "HEROES": {
+        "TITLE": "My Heroes"
+    },
+    "IMAGE": {
+        "SELECT_IMAGE": "Select Image"
+    },
+    "LANGUAGE_SELECTOR": {
+        "ENGLISH": "English",
+        "PORTUGUESE": "Portuguese"
+    }
+}
